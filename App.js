@@ -4,18 +4,23 @@ import { StyleSheet, Text, View } from "react-native";
 import { gStyle } from "./styles/style";
 import * as Font from "expo-font";
 import MainStack from "./navigation.js";
+import { AppLoading } from "expo";
 
-// import * as SplashScreen from "expo-splash-screen";
-// import AppLoading from "expo-app-loading";
+const LoadFonts = async () => {
+  await Font.loadAsync({
+    "Montserrat-Italic": require("./assets/fonts/Montserrat-Italic-VariableFont_wght.ttf"),
+    "Montserrat-Variable": require("./assets/fonts/Montserrat-VariableFont_wght.ttf"),
+  });
+};
 
-// SplashScreen.preventAutoHideAsync();
 export default function App() {
-  const [font, setFont] = useState(false);
-  // if (font) {
+  const [isFont, setisFont] = useState(false);
+  if (isFont) {
+    return (
+      <AppLoading startAsync={LoadFonts} onFinish={() => setisFont(true)} />
+    );
+  }
   return <MainStack />;
-  // } else {
-  //   return <AppLoading />;
-  // }
 }
 
 const styles = StyleSheet.create({});
